@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 
-export default function AccountPage() {
+function AccountForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const plan = searchParams.get("plan") ?? "growth";
@@ -111,5 +111,13 @@ export default function AccountPage() {
         </button>
       </form>
     </div>
+  );
+}
+
+export default function AccountPage() {
+  return (
+    <Suspense>
+      <AccountForm />
+    </Suspense>
   );
 }

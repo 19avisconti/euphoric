@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { setOptions, importLibrary } from "@googlemaps/js-api-loader";
 import { createClient } from "@/lib/supabase/client";
@@ -17,7 +17,7 @@ const tradeTypes = [
   "Other",
 ];
 
-export default function BusinessPage() {
+function BusinessForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const plan = searchParams.get("plan") ?? "growth";
@@ -198,5 +198,13 @@ export default function BusinessPage() {
         </button>
       </form>
     </div>
+  );
+}
+
+export default function BusinessPage() {
+  return (
+    <Suspense>
+      <BusinessForm />
+    </Suspense>
   );
 }

@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 type Status = "idle" | "sending" | "sent" | "error";
 
-export default function TestPage() {
+function TestForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const plan = searchParams.get("plan") ?? "growth";
@@ -70,5 +70,13 @@ export default function TestPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function TestPage() {
+  return (
+    <Suspense>
+      <TestForm />
+    </Suspense>
   );
 }

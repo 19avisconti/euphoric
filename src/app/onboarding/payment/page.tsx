@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { Suspense, useState, useEffect, useCallback } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { loadStripe } from "@stripe/stripe-js";
 import {
@@ -78,7 +78,7 @@ function CheckoutForm({ onSuccess }: { onSuccess: () => void }) {
   );
 }
 
-export default function PaymentPage() {
+function PaymentContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [plan, setPlan] = useState<"standard" | "growth">(
@@ -202,5 +202,13 @@ export default function PaymentPage() {
         ) : null}
       </div>
     </div>
+  );
+}
+
+export default function PaymentPage() {
+  return (
+    <Suspense>
+      <PaymentContent />
+    </Suspense>
   );
 }
